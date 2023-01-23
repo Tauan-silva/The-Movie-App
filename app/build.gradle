@@ -50,6 +50,9 @@ dependencies {
 
     implementation "androidx.core:core-ktx:$ktx_version"
 
+    //coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4"
+
     //Lifecycle components
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycle_version"

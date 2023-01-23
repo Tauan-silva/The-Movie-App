@@ -20,14 +20,19 @@ import com.tauan.themovieapp.util.DataState
 
 class MovieListFragment : Fragment(), MovieItemListener {
 
-    private val viewModel by navGraphViewModels<MovieViewModel>(R.id.app_graph) { defaultViewModelProviderFactory }
+    private val viewModel by navGraphViewModels<MovieViewModel>(R.id.app_graph) {
+        defaultViewModelProviderFactory
+    }
+
     private lateinit var binding: FragmentMovieListBinding
     private lateinit var adapter: MovieRecyclerViewAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View {
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_movie_list, container, false)
+        binding = DataBindingUtil.inflate(
+            inflater, R.layout.fragment_movie_list, container, false
+        )
         adapter = MovieRecyclerViewAdapter(this@MovieListFragment)
 
         setMenu()
@@ -52,13 +57,14 @@ class MovieListFragment : Fragment(), MovieItemListener {
             if (list != null) {
                 adapter.updateData(list)
             } else {
-                Snackbar.make(binding.root, "Something doesn't worked :(", Snackbar.LENGTH_LONG)
-                    .show()
+                Snackbar.make(
+                    binding.root, "Something doesn't worked :(", Snackbar.LENGTH_LONG
+                ).show()
             }
         }
 
         viewModel.navigationToDetailsLiveData.observe(viewLifecycleOwner) {
-            if (it != null) {
+            it.getContentIfNotHandled()?.let {
                 val action =
                     MovieListFragmentDirections.actionMovieListFragmentToMovieDetailsFragment()
                 findNavController().navigate(action)
@@ -72,8 +78,9 @@ class MovieListFragment : Fragment(), MovieItemListener {
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 DataState.ERROR -> {
-                    Snackbar.make(binding.root, "Something doesn't worked :(", Snackbar.LENGTH_LONG)
-                        .show()
+                    Snackbar.make(
+                        binding.root, "Something doesn't worked :(", Snackbar.LENGTH_LONG
+                    ).show()
                 }
                 else -> {
                     binding.list.visibility = View.VISIBLE
