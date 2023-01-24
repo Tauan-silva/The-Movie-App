@@ -1,4 +1,4 @@
-package com.tauan.themovieapp.data
+package com.tauan.themovieapp.data.network
 
 import com.tauan.themovieapp.data.model.image.ImageDto
 import com.tauan.themovieapp.data.model.movie.MovieDto

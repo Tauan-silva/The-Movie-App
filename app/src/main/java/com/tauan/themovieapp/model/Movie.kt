@@ -1,6 +1,12 @@
 package com.tauan.themovieapp.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.tauan.themovieapp.util.Constants
+
+@Entity(tableName = Constants.MOVIE_TABLE)
 data class Movie(
+    @PrimaryKey(false)
     val id: Int,
     val title: String,
     val description: String,
