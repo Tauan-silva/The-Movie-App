@@ -10,15 +10,12 @@ import com.tauan.themovieapp.domain.model.Poster
 import com.tauan.themovieapp.util.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
+import javax.inject.Inject
 
-class MovieClientDataSource : MovieDataSource {
+class MovieClientDataSource @Inject constructor() : MovieDataSource {
 
-    private val retrofit = Retrofit.Builder().baseUrl(Constants.API_URL)
-        .addConverterFactory(GsonConverterFactory.create()).build()
-
-    private val service = retrofit.create(MovieService::class.java)
+    @Inject
+    lateinit var service: MovieService
 
     override suspend fun getMovieData(): Result<List<Movie>?> = withContext(Dispatchers.IO) {
 
@@ -30,26 +27,28 @@ class MovieClientDataSource : MovieDataSource {
         }
     }
 
-    override suspend fun getMovieDetails(movie: Movie): Result<Movie?> = withContext(Dispatchers.IO) {
+    override suspend fun getMovieDetails(movie: Movie): Result<Movie?> =
+        withContext(Dispatchers.IO) {
 
-        val response = service.getMovieDetail(movieId = movie.id, Constants.API_KEY)
+            val response = service.getMovieDetail(movieId = movie.id, Constants.API_KEY)
 
-        when {
-            response.isSuccessful -> Result.success(
-                response.body()?.toMovie()
-            )
-            else -> Result.failure(Throwable(response.message()))
+            when {
+                response.isSuccessful -> Result.success(
+                    response.body()?.toMovie()
+                )
+                else -> Result.failure(Throwable(response.message()))
+            }
         }
-    }
 
-    override suspend fun getMoviePosters(movie: Movie): Result<List<Poster>?> = withContext(Dispatchers.IO) {
-        val response = service.getMovieImages(movieId = movie.id, Constants.API_KEY)
+    override suspend fun getMoviePosters(movie: Movie): Result<List<Poster>?> =
+        withContext(Dispatchers.IO) {
+            val response = service.getMovieImages(movieId = movie.id, Constants.API_KEY)
 
-        when {
-            response.isSuccessful -> Result.success(response.body()?.posters?.map { it.toPoster() })
-            else -> Result.failure(Throwable(response.message()))
+            when {
+                response.isSuccessful -> Result.success(response.body()?.posters?.map { it.toPoster() })
+                else -> Result.failure(Throwable(response.message()))
+            }
         }
-    }
 
     override suspend fun saveLocalData(movieList: List<Movie>?) {
         //NO-OP

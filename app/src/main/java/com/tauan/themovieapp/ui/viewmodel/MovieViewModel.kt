@@ -1,19 +1,23 @@
 package com.tauan.themovieapp.ui.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tauan.themovieapp.data.repository.MovieRepositoryImpl
 import com.tauan.themovieapp.domain.model.Movie
-import com.tauan.themovieapp.domain.repository.MovieRepository
 import com.tauan.themovieapp.util.DataState
 import com.tauan.themovieapp.util.Event
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import org.imaginativeworld.whynotimagecarousel.model.CarouselItem
+import javax.inject.Inject
 
-class MovieViewModel(application: Application) : AndroidViewModel(application) {
+@HiltViewModel
+class MovieViewModel @Inject constructor(
+    var repository: MovieRepositoryImpl
+) : ViewModel() {
 
     private val _movieLiveData = MutableLiveData<Movie?>()
     private val _listLiveData = MutableLiveData<List<Movie>?>()
@@ -36,13 +40,12 @@ class MovieViewModel(application: Application) : AndroidViewModel(application) {
     val postersLiveData: LiveData<List<CarouselItem>?>
         get() = _postersLiveData
 
-    val repository: MovieRepository = MovieRepositoryImpl(application.applicationContext)
-
     init {
         getData()
     }
 
-    private fun getData() {
+    @VisibleForTesting
+    fun getData() {
         _screenState.postValue(DataState.LOADING)
         viewModelScope.launch {
             val result = repository.getMovieData()
@@ -70,11 +73,10 @@ class MovieViewModel(application: Application) : AndroidViewModel(application) {
 
             result.fold(
                 onSuccess = {
-                    it?.let {
-                        _movieLiveData.postValue(it)
-                        _screenState.postValue(DataState.SUCESS)
-                        _navigationToDetailsLiveData.postValue(Event(Unit))
-                    }
+                    _movieLiveData.postValue(it)
+                    _screenState.postValue(DataState.SUCESS)
+                    _navigationToDetailsLiveData.postValue(Event(Unit))
+
                 },
                 onFailure = {
                     _screenState.postValue(DataState.ERROR)

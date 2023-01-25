@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
-import androidx.navigation.navGraphViewModels
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import com.bumptech.glide.Glide
 import com.tauan.themovieapp.R
 import com.tauan.themovieapp.databinding.FragmentMovieDetailsBinding
@@ -17,9 +17,7 @@ import com.tauan.themovieapp.ui.viewmodel.MovieViewModel
 class MovieDetailsFragment : Fragment() {
 
     private lateinit var binding: FragmentMovieDetailsBinding
-    private val viewModel by navGraphViewModels<MovieViewModel>(R.id.app_graph) {
-        defaultViewModelProviderFactory
-    }
+    private val viewModel by hiltNavGraphViewModels<MovieViewModel>(R.id.app_graph)
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?

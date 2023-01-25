@@ -6,9 +6,9 @@ import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.tauan.themovieapp.R
@@ -20,9 +20,7 @@ import com.tauan.themovieapp.util.DataState
 
 class MovieListFragment : Fragment(), MovieItemListener {
 
-    private val viewModel by navGraphViewModels<MovieViewModel>(R.id.app_graph) {
-        defaultViewModelProviderFactory
-    }
+    private val viewModel by hiltNavGraphViewModels<MovieViewModel>(R.id.app_graph)
 
     private lateinit var binding: FragmentMovieListBinding
     private lateinit var adapter: MovieRecyclerViewAdapter

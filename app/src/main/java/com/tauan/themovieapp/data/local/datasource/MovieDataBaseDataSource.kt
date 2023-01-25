@@ -1,20 +1,17 @@
 package com.tauan.themovieapp.data.local.datasource
 
-import android.content.Context
-import com.tauan.themovieapp.data.local.MovieDataBase
+import com.tauan.themovieapp.data.local.dao.MovieDao
 import com.tauan.themovieapp.domain.datasource.MovieDataSource
 import com.tauan.themovieapp.domain.model.Movie
 import com.tauan.themovieapp.domain.model.Poster
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import javax.inject.Inject
 
-class MovieDataBaseDataSource(
-    context: Context
-) : MovieDataSource {
+class MovieDataBaseDataSource @Inject constructor() : MovieDataSource {
 
-    private val dataBase = MovieDataBase.getDataBase(context)
-    private val movieDao = dataBase.movieDao()
-
+    @Inject
+    lateinit var movieDao: MovieDao
     override suspend fun getMovieData(): Result<List<Movie>?> = withContext(Dispatchers.IO) {
         Result.success(movieDao.selectAll())
     }

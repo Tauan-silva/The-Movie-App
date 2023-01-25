@@ -1,16 +1,16 @@
 package com.tauan.themovieapp.data.repository
 
-import android.content.Context
 import com.tauan.themovieapp.data.local.datasource.MovieDataBaseDataSource
 import com.tauan.themovieapp.data.network.datasource.MovieClientDataSource
 import com.tauan.themovieapp.domain.model.Movie
 import com.tauan.themovieapp.domain.model.Poster
 import com.tauan.themovieapp.domain.repository.MovieRepository
+import javax.inject.Inject
 
-class MovieRepositoryImpl(context: Context) : MovieRepository {
-
-    private val movieClientDataSource = MovieClientDataSource()
-    private val movieDataBaseDataSource = MovieDataBaseDataSource(context)
+class MovieRepositoryImpl @Inject constructor(
+    private val movieClientDataSource: MovieClientDataSource,
+    private val movieDataBaseDataSource: MovieDataBaseDataSource
+) : MovieRepository {
 
     override suspend fun getMovieData(): Result<List<Movie>?> {
 
@@ -50,12 +50,20 @@ class MovieRepositoryImpl(context: Context) : MovieRepository {
         movieDataBaseDataSource.clearLocalData()
     }
 
-    override suspend fun getMovieDetail(movie: Movie): Result<Movie> {
-        TODO("Not yet implemented")
+    override suspend fun getMovieDetail(movie: Movie): Result<Movie?> {
+        return try {
+            movieClientDataSource.getMovieDetails(movie)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 
-    override suspend fun getMoviePosters(movie: Movie): Result<List<Poster>> {
-        TODO("Not yet implemented")
+    override suspend fun getMoviePosters(movie: Movie): Result<List<Poster>?> {
+        return try {
+            movieClientDataSource.getMoviePosters(movie)
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 
 }
