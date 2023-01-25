@@ -7,7 +7,7 @@
     <data>
         <variable
             name="movie"
-            type="com.tauan.themovieapp.model.Movie" />
+            type="com.tauan.themovieapp.domain.model.Movie" />
     </data>
 
     <LinearLayout

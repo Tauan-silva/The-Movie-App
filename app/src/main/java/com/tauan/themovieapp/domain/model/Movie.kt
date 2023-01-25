@@ -1,4 +1,4 @@
-package com.tauan.themovieapp.model
+package com.tauan.themovieapp.domain.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

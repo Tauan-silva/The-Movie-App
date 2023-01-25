@@ -1,6 +1,6 @@
 package com.tauan.themovieapp.data.model.movie
 
-import com.tauan.themovieapp.model.Movie
+import com.tauan.themovieapp.domain.model.Movie
 import com.tauan.themovieapp.util.Constants
 
 data class Item(

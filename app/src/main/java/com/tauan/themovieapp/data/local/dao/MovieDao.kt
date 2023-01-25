@@ -4,7 +4,7 @@ import androidx.room.Dao
 import androidx.room.Query
 import androidx.room.Transaction
 
-import com.tauan.themovieapp.model.Movie
+import com.tauan.themovieapp.domain.model.Movie
 import com.tauan.themovieapp.util.Constants
 
 @Dao

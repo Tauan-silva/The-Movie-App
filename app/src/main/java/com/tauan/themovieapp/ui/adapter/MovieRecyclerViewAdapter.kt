@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.tauan.themovieapp.R
 import com.tauan.themovieapp.databinding.FragmentItemBinding
-import com.tauan.themovieapp.model.Movie
+import com.tauan.themovieapp.domain.model.Movie
 
 interface MovieItemListener {
     fun onItemSelected(position: Int)

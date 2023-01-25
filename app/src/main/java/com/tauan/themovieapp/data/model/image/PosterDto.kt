@@ -1,6 +1,6 @@
 package com.tauan.themovieapp.data.model.image
 
-import com.tauan.themovieapp.model.Poster
+import com.tauan.themovieapp.domain.model.Poster
 import com.tauan.themovieapp.util.Constants
 
 data class PosterDto(
