@@ -15,10 +15,10 @@ O aplicativo consiste em consumir uma Api de Filmes e series, onde você pode vi
 
 ## Screenshots
 
-![home](![image](https://user-images.githubusercontent.com/43898069/219126153-a93658ed-bcc7-42de-8a5b-d24c0f20d4b3.png))
+![home](![image](https://user-images.githubusercontent.com/43898069/219126153-a93658ed-bcc7-42de-8a5b-d24c0f20d4b3.png)
 
 
-![movie details](![image](https://user-images.githubusercontent.com/43898069/219126309-80450faa-92e8-4f6d-9b32-e261f882f1eb.png))
+![movie details](![image](https://user-images.githubusercontent.com/43898069/219126309-80450faa-92e8-4f6d-9b32-e261f882f1eb.png)
 
 
-![movie details posters](![image](https://user-images.githubusercontent.com/43898069/219126504-a2e8d565-4934-4175-8a6f-b49ebb5462a9.png))
+![movie details posters](![image](https://user-images.githubusercontent.com/43898069/219126504-a2e8d565-4934-4175-8a6f-b49ebb5462a9.png)
